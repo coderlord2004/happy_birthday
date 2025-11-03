@@ -16,6 +16,19 @@
 
 <body>
 
+    <!-- Autoplay may be blocked by browsers when audio is not muted.
+         We start muted so most browsers will allow autoplay, then
+         show a button to let the user unmute (user gesture). -->
+    <audio id="bg-audio" controls autoplay loop style="visibility: hidden">
+        <source src="ms/drill.mp3" type="audio/ogg" />
+        <source src="ms/drill.mp3" type="audio/mpeg" />
+        <a href="#">horse</a>
+    </audio>
+
+    <!-- Fallback UI shown when autoplay was blocked or user needs to unmute -->
+    <div id="audio-fallback" style="position:fixed; bottom:16px; left:16px; z-index:9999; display:none;">
+        <button id="unmute-btn" class="btn btn-primary">Bật âm thanh</button>
+    </div>
     <div class="container-fluid">
         <div class="jumbotron img_banner_hpbd">
                 <div class="text-center text-danger bg-danger">
@@ -56,11 +69,7 @@
                 <div class="modal-body">
                     <div class="containeri">
                         <img class="img img-responsive" src="img/Winter happy birthday.jpg" alt="80x80px" style="height: 560px">
-                        <audio controls autoplay loop>
-                            <source src="ms/drill.mp3" type="audio/ogg" />
-                            <source src="ms/drill.mp3" type="audio/mpeg" />
-                            <a href="#">horse</a>
-                        </audio>
+                        
                     </div>
                     <h1 class="heading text-danger bg-danger">
                         <div class="containeri">
@@ -85,6 +94,23 @@
     <!-- required, default behaviour -->
     <script src="js/snowstorm-min.js"></script>
     <script src="js/js01.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const audio = document.getElementById('bg-audio');
+            const containerDiv = document.querySelector('.container'); // div cần click
+            
+            // Đảm bảo audio ở trạng thái tắt tiếng để không bị chặn autoplay
+            audio.muted = true;
+            audio.play().catch(() => {});
+
+            // Khi người dùng click vào div.container thì bật nhạc
+            containerDiv.addEventListener('click', function () {
+                audio.muted = false;   // bật tiếng
+                audio.play().catch(err => console.log(err));
+            }, { once: true }); // chỉ thực hiện 1 lần, tránh lặp lại
+        });
+    </script>
+
 
 </body>
 
