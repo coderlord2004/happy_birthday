@@ -85,7 +85,7 @@ h4 {
 .bottom-right {
   position: absolute;
   bottom: 253px;
-  right: 20px;
+  right: 60px;
   color: #6c7c6b;
   font-size: 80%;
 }
@@ -94,4 +94,14 @@ h4 {
   bottom: 5px;
   left: 270px;
   color: #b78690;
+}
+
+/* Gradient text for headings (blue -> red) */
+.gradient-text {
+  background: linear-gradient(90deg, #1e90ff 0%, #ff1e1e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Safari/Chrome */
+  background-clip: text;
+  color: transparent; /* fallback */
+  display: inline-block; /* help with background clipping */
 }
